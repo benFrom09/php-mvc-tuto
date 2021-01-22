@@ -3,6 +3,7 @@ namespace Framework;
 
 use Framework\Router\Router;
 use Framework\Router\Request;
+use Framework\Router\Response;
 
 
 class App 
@@ -11,12 +12,22 @@ class App
     public Router $router;
     public Request $request;
 
-    public function __construct() {
+    public static $ROOT_DIR;
+
+    public Response $response;
+
+    public static App $app;
+
+    public function __construct($rootDirectory) {
+
+        self::$ROOT_DIR = $rootDirectory;
         $this->request = new Request();
-        $this->router = new Router($this->request);
+        $this->response = new Response();
+        $this->router = new Router($this->request,$this->response);
+        self::$app = $this;
     }
 
     public function run() {
-        $this->router->resolve();
+        echo $this->router->resolve();
     }
 }
