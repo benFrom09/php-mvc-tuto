@@ -18,6 +18,8 @@ class App
 
     public static App $app;
 
+    public Controller $controller;
+
     public function __construct($rootDirectory) {
 
         self::$ROOT_DIR = $rootDirectory;

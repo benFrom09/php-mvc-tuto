@@ -37,7 +37,8 @@ class Router
             return $this->renderView($callable);
         }
         if(is_array($callable)) {
-            $callable[0] = new $callable[0]();
+            App::$app->controller = new $callable[0];
+            $callable[0] = App::$app->controller;
         }
 
         return  call_user_func($callable,$this->request);
@@ -55,8 +56,11 @@ class Router
         return str_replace('{{ content }}',$viewContent,$layout);  
     }
     protected function getLayout() {
+
+        $layout = App::$app->controller->layout;
+        
         ob_start();
-        require_once App::$ROOT_DIR . "/resources/views/layout/main.php";
+        require_once App::$ROOT_DIR . "/resources/views/layout/{$layout}.php";
         return ob_get_clean();
     }
 

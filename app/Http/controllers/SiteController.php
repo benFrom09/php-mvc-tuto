@@ -2,17 +2,18 @@
 namespace App\Http\controllers;
 
 use Framework\App;
+use Framework\Controller;
 use Framework\Router\Request;
 
 
-class SiteController
+class SiteController extends Controller
 {
     public function contact() {
 
         $name = [
             'name' => 'ben'
         ];
-        return App::$app->router->renderView('contact',$name);
+        return $this->render('contact',$name);
     }
 
     public function handleContact(Request $request) {
